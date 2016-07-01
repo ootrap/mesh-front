@@ -38,11 +38,14 @@
                 </thead>
                 <tbody>
                   <tr v-for="mp in wxmpList.mplist">
-                    <td><img src="http://dn-weixinhost-admin-data.qbox.me/fb160fcb930825fb.jpg" width="32px"></td>
+                    <td><img :src="mp.avatar_url" width="32px"></td>
                     <td>{{mp.nickname}}</td>
-                    <td v-if="1">已授权</td>
-                    <td v-else>授权已取消</td>
-                    <td><a href="#" @click.stop.prevent="goHome(mp.id)"  class="btn btn-azure btn-xs">进入后台</a></td>
+                    <td v-if="mp.authorized==1"><a href="#" class="btn btn-success btn-xs disabled">已授权</a></td>
+                    <td v-else><a href="#" class="btn btn-blue btn-xs">点击授权</a></td>
+                    <td>
+                    <a href="#" @click.stop.prevent="goHome(mp.id)"  class="btn btn-azure btn-xs">管理</a>
+                    <a href="#" @click.stop.prevent="goHome(mp.id)"  class="btn btn-danger btn-xs">删除</a>
+                    </td>
                   </tr>
                 </tbody>  
               </table>
