@@ -24,14 +24,3 @@ sync(store, router)
 registerRouters(router)
 
 router.start(App, '#app')
-// 不允许没有userinfo数据而直接访问'home'
-router.beforeEach(function ({to, next}) {
-  if (to.name === 'home' && window.sessionStorage.getItem('wemesh.userInfo') === null) {
-    return false
-  } else {
-    next()
-  }
-})
-if (store.state.route.path === '/home' && window.sessionStorage.getItem('wemesh.userInfo') === null) {
-  router.go('/')
-}

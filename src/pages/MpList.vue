@@ -41,7 +41,7 @@
                     <td><img :src="mp.avatar_url" width="32px"></td>
                     <td>{{mp.nickname}}</td>
                     <td v-if="mp.authorized==1"><a href="#" class="btn btn-success btn-xs disabled">已授权</a></td>
-                    <td v-else><a href="#" class="btn btn-blue btn-xs">点击授权</a></td>
+                    <td v-else><a v-bind:href="wxmpList.url" class="btn btn-blue btn-xs">点击授权</a></td>
                     <td>
                     <a href="#" @click.stop.prevent="goHome(mp.id)"  class="btn btn-azure btn-xs">管理</a>
                     <a href="#" @click.stop.prevent="deleteWxmp(mp.id)"  class="btn btn-danger btn-xs">删除</a>

@@ -11,6 +11,7 @@ export default function (router) {
   router.map({
     '/': {
       component: Single,
+      auth: false,
       subRoutes: {
         '/': {
           component: MpList
@@ -101,5 +102,14 @@ export default function (router) {
   })
   router.redirect({
     '*': '/'
+  })
+
+    // 不允许没有userinfo数据而直接访问'home'及其他
+  router.beforeEach(function (transition) {
+    if (transition.to.auth !== false && window.sessionStorage.getItem('wemesh.userInfo') === null) {
+      transition.redirect('/')
+    } else {
+      transition.next()
+    }
   })
 }
