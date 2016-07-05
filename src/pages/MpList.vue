@@ -44,7 +44,7 @@
                     <td v-else><a href="#" class="btn btn-blue btn-xs">点击授权</a></td>
                     <td>
                     <a href="#" @click.stop.prevent="goHome(mp.id)"  class="btn btn-azure btn-xs">管理</a>
-                    <a href="#" @click.stop.prevent="goHome(mp.id)"  class="btn btn-danger btn-xs">删除</a>
+                    <a href="#" @click.stop.prevent="deleteWxmp(mp.id)"  class="btn btn-danger btn-xs">删除</a>
                     </td>
                   </tr>
                 </tbody>  
@@ -61,7 +61,7 @@
 <script>
 import overlay from '../components/Overlay.vue'
 import store from '../vuex/store'
-import {getWxmpList, getUserInfo} from '../vuex/actions'
+import {getWxmpList, getUserInfo, deleteWxmp} from '../vuex/actions'
 export default {
   store: store,
   vuex: {
@@ -70,7 +70,7 @@ export default {
       userInfo: ({userInfo}) => userInfo.items
     },
     actions: {
-      getWxmpList, getUserInfo
+      getWxmpList, getUserInfo, deleteWxmp
     }
   },
   created () {
@@ -90,6 +90,10 @@ export default {
   methods: {
     goHome (id) {
       this.getUserInfo(id)
+    },
+    deleteWxmp (id) {
+      this.deleteWxmp(id)
+      this.getWxmpList()
     }
   }
 }

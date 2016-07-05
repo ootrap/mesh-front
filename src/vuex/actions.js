@@ -67,19 +67,24 @@ export const getWxmpList = ({dispatch}) => {
   api.getWxmpList().then(response => {
     dispatch(types.GET_WXMP_LIST, {wxmpList: response.data})
   }, response => {
-    return swal('发生错误', '读取数据错误，请联系管理员', 'error')
+    return swal('发生错误', response.data, 'error')
   })
 }
 
-/*
-更新公众号信息  TODO!!!!!!!!!
- */
-export const updateWxmpList = ({dispatch}) => {
-  api.getWxmpList().then(response => {
-    var data = response.data
-    dispatch(types.UPDATE_WXMP_LIST, {
-      wxmpList: data
+export const deleteWxmp = ({dispatch, router}, id) => {
+  swal({
+    title: '确定删除数据吗？',
+    text: '该操作不会影响您的公众号数据，但在微脉事中的数据会被删除',
+    type: 'error',
+    showCancelButton: true,
+    confirmButtonColor: '#DD6B55',
+    cancelButtonText: '算了，留着吧',
+    confirmButtonText: '是的，我要删除'
+  }, function () {
+    api.deleteWxmp(id).then(response => {
+      window.location.reload()
+    }, response => {
+      return swal('发生错误', response.statusText, 'error')
     })
   })
-  window.location.reload()
 }

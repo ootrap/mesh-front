@@ -6,6 +6,9 @@ export default {
   },
   getUserInfo: function (id) {
     return UserInfoResouce.get({id})
+  },
+  deleteWxmp: function (id) {
+    return UserInfoResouce.delete({id})
   }
   // getMe: function () {
   //   return UserResource.get({id:'me'})

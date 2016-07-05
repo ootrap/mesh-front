@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import {API_ROOT} from '../config'
-// const API_ROOT = 'http://homestead.app/api/v1/'
-// const API_ROOT = 'http://wemesh.cn'
-// Vue.http.options.root = 'http://homestead.app'
 Vue.use(VueResource)
+Vue.http.options.crossOrigin = true
 
 export const WxmpResource = Vue.resource(API_ROOT + 'mplist')
 export const UserInfoResouce = Vue.resource(API_ROOT + 'wxmp{/id}')
