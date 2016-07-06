@@ -1,8 +1,8 @@
 <template>
-  <div class="btn-group">
+  <li class="btn-group">
     <slot></slot>
     <slot name="dropdown-menu"></slot>
-  </div>
+  </li>
 </template>
 <script>
   import EventListener from './utils/EventListener'
