@@ -6,6 +6,9 @@ import Message from './pages/Message.vue'
 import App from './pages/App.vue'
 import FindPass from './pages/Findpass.vue'
 import Callback from './pages/Callback.vue'
+// import { getWxToken } from './vuex/actions'
+import { getCookie } from './authService'
+// import store from './vuex/store'
 
 export default function (router) {
   router.map({
@@ -105,8 +108,11 @@ export default function (router) {
   })
 
     // 不允许没有userinfo数据而直接访问'home'及其他
+  // const isHold = store.state.auth.isHold
   router.beforeEach(function (transition) {
     if (transition.to.auth !== false && window.sessionStorage.getItem('wemesh.userInfo') === null) {
+      transition.redirect('/')
+    } else if (transition.to.auth !== false && getCookie('wxToken') === undefined) {
       transition.redirect('/')
     } else {
       transition.next()

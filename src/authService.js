@@ -1,21 +1,20 @@
 import cookie from 'react-cookie'
 
-export function saveCookie (name, value) {
-  cookie.save(name, value, cookieConfig)
-}
-
 export function getCookie (name) {
   return cookie.load(name)
 }
 
 export function removeCookie (name) {
-  cookie.remove(name, cookieConfig)
+  cookie.remove(name)
 }
 
 export function signOut () {
-  cookie.remove('token', cookieConfig)
+  window.sessionStorage.clear()
+  cookie.remove('wxToken')
+  cookie.remove('wemesh')
 }
 
-export function isLogin () {
-  return !!cookie.load('token')
+export function isHold () {
+  window.console.log(cookie.load('wxToken'))
+  return !!cookie.load('wxToken')
 }

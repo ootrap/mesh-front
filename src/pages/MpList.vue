@@ -43,7 +43,7 @@
                     <td v-if="mp.authorized==1"><a href="#" class="btn btn-success btn-xs disabled">已授权</a></td>
                     <td v-else><a v-bind:href="wxmpList.url" class="btn btn-blue btn-xs">点击授权</a></td>
                     <td>
-                    <a href="#" @click.stop.prevent="goHome(mp.id)"  class="btn btn-azure btn-xs">管理</a>
+                    <a href="#" @click.stop.prevent="goHome(mp.weid)"  class="btn btn-azure btn-xs" :class="{'disabled':mp.authorized !=1}">管理</a>
                     <a href="#" @click.stop.prevent="deleteWxmp(mp.id)"  class="btn btn-danger btn-xs">删除</a>
                     </td>
                   </tr>
@@ -61,7 +61,7 @@
 <script>
 import overlay from '../components/Overlay.vue'
 import store from '../vuex/store'
-import {getWxmpList, getUserInfo, deleteWxmp} from '../vuex/actions'
+import {getWxmpList, updateUserInfo, deleteWxmp} from '../vuex/actions'
 export default {
   store: store,
   vuex: {
@@ -70,7 +70,7 @@ export default {
       userInfo: ({userInfo}) => userInfo.items
     },
     actions: {
-      getWxmpList, getUserInfo, deleteWxmp
+      getWxmpList, updateUserInfo, deleteWxmp
     }
   },
   created () {
@@ -89,11 +89,10 @@ export default {
   },
   methods: {
     goHome (id) {
-      this.getUserInfo(id)
+      this.updateUserInfo(id)
     },
     deleteWxmp (id) {
       this.deleteWxmp(id)
-      this.getWxmpList()
     }
   }
 }

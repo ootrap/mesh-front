@@ -1,6 +1,6 @@
 import * as utils from '../utils'
 import api from '../api'
-import { signOut } from '../authService'
+import { signOut, getCookie } from '../authService'
 import * as types from './types'
 var swal = require('sweetalert')
 export const fullscreen = ({ dispatch }) => {
@@ -25,39 +25,25 @@ export const logout = ({dispatch, router}) => {
 /**
  * 获取用户信息(包括菜单 消息等)
  */
-export const getUserInfo = ({dispatch, router}, id, update = false) => {
-  if (window.sessionStorage.getItem('wemesh.userInfo') === null || update === true) {
-    api.getUserInfo(id).then(response => {
-      let json = response.data
-      window.sessionStorage.setItem('wemesh.userInfo', JSON.stringify(json))
-      dispatch(types.GET_USER_INFO, id, {
-        userInfo: json
-      })
-      router.go({name: 'home'})
-      return true
-    })
+export const getUserInfo = ({dispatch, router}, id) => {
+  if (window.sessionStorage.getItem('wemesh.userInfo') === null) {
+    makeUserInfo(id)
   } else {
     let json = JSON.parse(window.sessionStorage.getItem('wemesh.userInfo'))
     dispatch(types.GET_USER_INFO, {
       userInfo: json
     })
     router.go({name: 'home'})
-    return true
+    // return true
   }
 }
 
 /*
 更新用户信息(包括菜单 消息等)
  */
-export const updateUserInfo = ({dispatch}) => {
-  api.UserInfoResouce().then(response => {
-    let json = response.data.data
-    window.sessionStorage.setItem('wemesh.userInfo', JSON.stringify(json))
-    dispatch(types.UPDATE_USER_INFO, {
-      userInfo: json
-    })
-  })
-  window.location.reload()
+export const updateUserInfo = ({dispatch, router}, weid) => {
+  makeUserInfo({dispatch, router}, weid)
+  makeCookie({dispatch}, weid)
 }
 
 /**
@@ -86,5 +72,34 @@ export const deleteWxmp = ({dispatch, router}, id) => {
     }, response => {
       return swal('发生错误', response.statusText, 'error')
     })
+  })
+}
+
+export const getWxToken = ({dispatch}, weid) => {
+  if (getCookie('wxToken') === undefined) {
+    makeCookie({dispatch}, weid)
+  }
+  return getCookie('wxToken')
+}
+
+function makeCookie ({dispatch}, weid) {
+  api.getWxToken(weid).then(response => {
+    document.cookie = 'wxToken=' + response.data.token + ';expires=' + new Date(response.data.expires).toUTCString()
+    dispatch(types.GET_WXTOKEN)
+  }, response => {
+    return swal('发生错误', response.statusText, 'error')
+  })
+}
+
+function makeUserInfo ({dispatch, router}, id) {
+  api.getUserInfo(id).then(response => {
+    let json = response.data
+    window.sessionStorage.setItem('wemesh.userInfo', JSON.stringify(json))
+    dispatch(types.GET_USER_INFO, {
+      userInfo: json
+    })
+    router.go({name: 'home'})
+  }, response => {
+    return swal('发生错误', response.statusText, 'error')
   })
 }

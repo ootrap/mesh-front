@@ -6,7 +6,7 @@ Vue.http.options.crossOrigin = true
 
 export const WxmpResource = Vue.resource(API_ROOT + 'mplist')
 export const UserInfoResouce = Vue.resource(API_ROOT + 'wxmp{/id}')
-// export const AuthResource = Vue.resource(API_ROOT + 'auth{/id}')
+export const wxmpTokenResource = Vue.resource(API_ROOT + 'wxToken{/id}')
 // export const ArticleResource = Vue.resource(API_ROOT + 'article{/id}{/controller}')
 // export const TagResource = Vue.resource(API_ROOT + 'tags{/id}')
 // export const CommentResource = Vue.resource(API_ROOT + 'comment{/id}{/controller}')

@@ -25,7 +25,7 @@
                 </li>
                 <li class="divider"></li>
                 <li>
-                  <a href="#" @click.stop.prevent="onLogout"> 退出账号 </a>
+                  <a href="#" @click.stop.prevent="logout"> 退出账号 </a>
                 </li>
               </ul>
             </dropdown>
@@ -35,24 +35,18 @@
 </template>
 
 <script>
-  import { getUserInfo } from '../vuex/actions'
+  import { getUserInfo, logout } from '../vuex/actions'
   import Dropdown from '../components/Dropdown.vue'
   export default {
     components: {
       Dropdown
-    },
-    methods: {
-      onLogout: function () {
-        window.sessionStorage.clear()
-        window.location.href = '/logout'
-      }
     },
     vuex: {
       getters: {
         userInfo: ({userInfo}) => userInfo.items
       },
       actions: {
-        getUserInfo
+        getUserInfo, logout
       }
     },
     created () {

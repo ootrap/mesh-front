@@ -6,7 +6,6 @@ import registerRouters from './routers'
 import App from './App.vue'
 import { sync } from 'vuex-router-sync'
 import VueValidator from 'vue-validator'
-// import filters from './filters'
 import store from './vuex/store'
 
 Vue.use(VueResource)
@@ -20,7 +19,5 @@ const router = new VueRouter({
 })
 
 sync(store, router)
-
 registerRouters(router)
-
 router.start(App, '#app')

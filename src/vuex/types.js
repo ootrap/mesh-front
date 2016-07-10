@@ -9,3 +9,6 @@ export const UPDATE_WXMP_DETAIL = 'UPDATE_WXMP_DETAIL'
 
 export const SHOW_TOAST = 'SHOW_TOAST'
 export const HIDE_TOAST = 'HIDE_TOAST'
+
+export const GET_WXTOKEN = 'GET_WXTOKEN'
+export const LOGOUT = 'LOGOUT'

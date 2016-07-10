@@ -1,4 +1,4 @@
-import {UserInfoResouce, WxmpResource} from './resources'
+import {UserInfoResouce, WxmpResource, wxmpTokenResource} from './resources'
 
 export default {
   getWxmpList: function () {
@@ -9,10 +9,10 @@ export default {
   },
   deleteWxmp: function (id) {
     return UserInfoResouce.delete({id})
+  },
+  getWxToken: function (id) {
+    return wxmpTokenResource.get({id})
   }
-  // getMe: function () {
-  //   return UserResource.get({id:'me'})
-  // },
   // mdUser: function (data) {
   //   return UserResource.update({id:'mdUser'},data)
   // },

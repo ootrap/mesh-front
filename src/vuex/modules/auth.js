@@ -1,23 +1,19 @@
-import { LOGIN, LOGOUT } from '../types'
-var localStorage = window.localStorage.getItem('wemesh_token')
+import { GET_WXTOKEN, LOGOUT } from '../types'
+import { getCookie } from '../../authService'
+let wxToken = getCookie('wxToken')
 
-if (localStorage !== null) {
-  var currentAuthState = true
-}
 const state = {
-  isAuthed: currentAuthState
+  isHold: wxToken !== undefined
 }
 
 const mutations = {
-  [LOGIN] (state) {
-    state.isAuthed = true
+  [GET_WXTOKEN] () {
+    state.isHold = wxToken !== undefined
   },
   [LOGOUT] (state) {
-    window.localStorage.removeItem('wemesh_token')
-    state.isAuthed = false
+    state.isHold = false
   }
 }
-
 export default ({
   state,
   mutations
